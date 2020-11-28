@@ -1,0 +1,107 @@
+- Spring Hibernate
+
+   - Database concepts
+   1. one to one mapping
+   2. cascade operations
+   3. Eager vs Lazy loading while fetching data from database.
+
+  - one to one mapping
+    - Instructor ---> Instructor Detail
+    - One way relation unidirection
+
+  - Entity Lifecycle
+    - operations            description
+    1. Detach             If entity is detached it is not associated with hibernate session.
+    2. Merge              If instance is detached from session, merge will reattach to session
+    3. Persist            Transitions new instances to managed state. Next flush/commit will save in db.
+    4. remove             Transitions managed entity to be removed. Next flush/commit will remove from db.
+    5. Refresh            reload/synch object with data from db. Prevents stale data.
+
+
+
+
+
+                                 New                    /             Transient
+                                ^  |                                      ^
+                                |  |                                       \
+                  save/persist  |  |    rollback/new                        \ commit
+                                |  |                                         \
+              Refresh           |  >                remove/delete             \
+            ----------  Persistent/Managed    --------------------------->   Removed
+            |                                 <---------------------------    /
+            --------->       | ^                       Persist/rollback      /
+                             | |                                            /
+         Commit/rollback/    | | merge                                     /   rollback
+                close        | |                                          /
+                             > |                                         <
+                             Detached                             Detached
+
+
+
+        - @onetoone cascade types
+            1. Persist          if entity is persist/saved, related entity will also be persisted
+            2. remove           if entity is removed/deleted, related entity will also be deleted
+            3. refresh          if entity is refreshed, related entity will also be refreshed
+            4. detach           if entity is detached(not associated with session),
+                                    related entity will also be detached.
+            5. Merge            if entity is merged, related entity will also be merged
+            6. All              All of above cascade types
+
+
+        - @onetoone bidirectional
+                    Instructor -------> instructor detail
+                               <-----
+
+              from instructor detail can get instructor.
+
+
+        if only want to delete instructor detail not instructor then
+        S1.	@OneToOne(mappedBy = "instructorDetail", cascade =
+        			{CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+
+        s2. and break the associated mapping
+            tempInstructorDetail.getInstructor.setInstructorDetail(null);
+            need to set the Instructor object field Instructordetail to null
+
+
+        -- one to many or many to one
+
+            instructor    -----------------> courses
+                          <----------------
+
+            one instructor can have many courses and both are independent if one is deleted other is not.
+
+        -- Eager vs Lazy
+                When retrieve data should we retrieve eager i.e. retrieve everything or lazy i.e. on
+                request basis.
+
+                e.g. load instructor will load all the associated courses with it at once.
+
+                course --> student
+                nightmare! all students when needed only matching courses.
+                so best practice is lazy loading.
+
+         - Default type:
+         1. onetoone  -> Eager
+         2. onetomany   -> Lazy
+         3. manytoone   -> Eager
+         4. maytomany -> Lazy
+
+         - Note: Lazy need open hibernate connection to retrieve data at later time.
+         - Once session is closed and try to retrieve data then hibernate throw exception.
+
+       - Retrieve Lazy data 2 options and many other there but below most common.
+       1. session.get and call appropriate get method
+       2. Hibernate query with HQL.
+
+       -- onetomany uni
+            courses -----> reviews
+
+
+       -- many to many
+            courses   -----jointable---> students
+                      <-----jointable---
+
+            Jointable is used to define the mapping bet two tables i.e. course_student
+
