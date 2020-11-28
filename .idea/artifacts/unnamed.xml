@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact name="unnamed">
+    <output-path>$PROJECT_DIR$/src/webapp/</output-path>
+    <root id="root">
+      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+      <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.2" />
+      <element id="library" level="project" name="Maven: javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1" />
+      <element id="library" level="project" name="Maven: javax.servlet.jsp.jstl:jstl-api:1.2" />
+      <element id="library" level="project" name="Maven: javax.servlet.jsp:jsp-api:2.1" />
+      <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+      <element id="library" level="project" name="Maven: org.glassfish.web:javax.servlet.jsp.jstl:1.2.1" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.2.9.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.0" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.0" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.0" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.2.9.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.2.9.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-web:5.3.0" />
+    </root>
+  </artifact>
+</component>
